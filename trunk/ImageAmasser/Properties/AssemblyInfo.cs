@@ -30,7 +30,12 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
+#if DEBUG
+[assembly: AssemblyVersion("1.1.0")]
+#else
 [assembly: AssemblyVersion("1.1.*")]
+#endif
+
 [assembly: NeutralResourcesLanguageAttribute("ja-JP")]
 
 [assembly: System.CLSCompliant(true)]
