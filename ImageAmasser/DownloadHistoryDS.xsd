@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DownloadHistoryDS" targetNamespace="http://tempuri.org/DownloadHistoryDS.xsd" xmlns:mstns="http://tempuri.org/DownloadHistoryDS.xsd" xmlns="http://tempuri.org/DownloadHistoryDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DownloadHistoryDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DownloadHistoryDS" msprop:Generator_DataSetName="DownloadHistoryDS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="History" msprop:Generator_UserTableName="History" msprop:Generator_RowDeletedName="HistoryRowDeleted" msprop:Generator_TableClassName="HistoryDataTable" msprop:Generator_RowChangedName="HistoryRowChanged" msprop:Generator_RowClassName="HistoryRow" msprop:Generator_RowChangingName="HistoryRowChanging" msprop:Generator_RowEvArgName="HistoryRowChangeEvent" msprop:Generator_RowEvHandlerName="HistoryRowChangeEventHandler" msprop:Generator_TablePropName="History" msprop:Generator_TableVarName="tableHistory" msprop:Generator_RowDeletingName="HistoryRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="URL" msprop:Generator_UserColumnName="URL" msprop:Generator_ColumnPropNameInRow="URL" msprop:nullValue="_empty" msprop:Generator_ColumnVarNameInTable="columnURL" msprop:Generator_ColumnPropNameInTable="URLColumn" type="xs:string" />
+              <xs:element name="DATE" msprop:Generator_UserColumnName="DATE" msprop:Generator_ColumnPropNameInRow="DATE" msprop:Generator_ColumnVarNameInTable="columnDATE" msprop:Generator_ColumnPropNameInTable="DATEColumn" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:History" />
+      <xs:field xpath="mstns:URL" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
