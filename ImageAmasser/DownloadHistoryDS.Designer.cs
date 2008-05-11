@@ -266,6 +266,8 @@ namespace ImageAmasser {
             
             private global::System.Data.DataColumn columnDATE;
             
+            private global::System.Data.DataColumn columnRESULT;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public HistoryDataTable() {
                 this.TableName = "History";
@@ -311,6 +313,13 @@ namespace ImageAmasser {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn RESULTColumn {
+                get {
+                    return this.columnRESULT;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -339,11 +348,12 @@ namespace ImageAmasser {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public HistoryRow AddHistoryRow(string URL, System.DateTime DATE) {
+            public HistoryRow AddHistoryRow(string URL, System.DateTime DATE, string RESULT) {
                 HistoryRow rowHistoryRow = ((HistoryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         URL,
-                        DATE};
+                        DATE,
+                        RESULT};
                 rowHistoryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHistoryRow);
                 return rowHistoryRow;
@@ -376,6 +386,7 @@ namespace ImageAmasser {
             internal void InitVars() {
                 this.columnURL = base.Columns["URL"];
                 this.columnDATE = base.Columns["DATE"];
+                this.columnRESULT = base.Columns["RESULT"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -384,11 +395,14 @@ namespace ImageAmasser {
                 base.Columns.Add(this.columnURL);
                 this.columnDATE = new global::System.Data.DataColumn("DATE", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDATE);
+                this.columnRESULT = new global::System.Data.DataColumn("RESULT", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRESULT);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnURL}, true));
                 this.columnURL.AllowDBNull = false;
                 this.columnURL.Unique = true;
                 this.columnDATE.AllowDBNull = false;
+                this.columnRESULT.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -537,6 +551,16 @@ namespace ImageAmasser {
                 }
                 set {
                     this[this.tableHistory.DATEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string RESULT {
+                get {
+                    return ((string)(this[this.tableHistory.RESULTColumn]));
+                }
+                set {
+                    this[this.tableHistory.RESULTColumn] = value;
                 }
             }
         }
