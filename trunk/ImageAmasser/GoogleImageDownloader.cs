@@ -97,8 +97,9 @@ namespace ImageAmasser
 
         static Regex regex = new Regex(@"imgurl=(?<imgurl>https?:\/\/[^&]+)&imgrefurl=(?<imgrefurl>https?:\/\/[^&]+)&start");
         
-        public static Dictionary<string, string> ParseHtml(Uri url)
+        public Dictionary<string, string> ParseHtml(Uri url)
         {
+            int count = 0;
             Dictionary<string, string> imgurls = new Dictionary<string, string>();
             using (System.Net.WebClient wc = new System.Net.WebClient())
             {
@@ -111,15 +112,21 @@ namespace ImageAmasser
                     {
                         string line = sr.ReadLine();
                         MatchCollection matches = regex.Matches(line);
+                        count += matches.Count;
                         foreach (Match match in matches)
                         {
-                            //Debug.WriteLine("0 : " + match.Groups["imgurl"].Value);
-                            //Debug.WriteLine("1 : " + match.Groups["imgrefurl"].Value);
-                            imgurls.Add(match.Groups["imgurl"].Value, match.Groups["imgrefurl"].Value);
+                            string imgurl = match.Groups["imgurl"].Value;
+                            string imgrefurl = match.Groups["imgrefurl"].Value;
+                            if (null == historytable.FindByURL(imgurl))
+                            {
+                                imgurls.Add(imgurl, imgrefurl);
+                            }
                         }
                     }
                 }
             }
+
+            if (count == 0) return null;
             return imgurls;
         }
 
@@ -188,7 +195,12 @@ namespace ImageAmasser
 
             FileInfo file = new FileInfo(filepath);
 
-            if (e.Error != null)
+            if (e.Cancelled)
+            {
+                file.Delete();
+                Debug.WriteLine("Download Canceled : " + imgurl);
+            }
+            else if (e.Error != null)
             {
                 file.Delete();
                 Exception ex = e.Error;
@@ -199,34 +211,36 @@ namespace ImageAmasser
                     message += " " + ex.Message;
                 }
                 Debug.WriteLine("Download Error : " + message);
-            }
-            else if (e.Cancelled)
-            {
-                file.Delete();
-                Debug.WriteLine("Download Canceled : " + imgurl);
+                AddHistory(imgurl, "Error");
             }
             else if (!wc.ResponseHeaders[HttpResponseHeader.ContentType]
                 .StartsWith("image/", StringComparison.CurrentCulture))
             {
                 file.Delete();
                 Debug.WriteLine("Download Not-a-image : " + imgurl);
+                AddHistory(imgurl, "Not-a-image");
             }
             else
             {
                 Debug.WriteLine("Download Complete ("
                     + (file.Length / 1024) + ") : " + imgurl);
-                lock (historytable)
-                {
-                    if (null == historytable.FindByURL(imgurl))
-                    {
-                        historytable.AddHistoryRow(imgurl, DateTime.Now);
-                    }
-                }
+                AddHistory(imgurl, "Get");
             }
 
             if (file.Exists && file.Length == 0)
             {
                 file.Delete();
+            }
+        }
+
+        void AddHistory(string imgurl, string result)
+        {
+            lock (historytable)
+            {
+                if (null == historytable.FindByURL(imgurl))
+                {
+                    historytable.AddHistoryRow(imgurl, DateTime.Now, result);
+                }
             }
         }
 
