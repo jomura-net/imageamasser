@@ -15,11 +15,12 @@
   <xs:element name="DownloadHistoryDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DownloadHistoryDS" msprop:Generator_DataSetName="DownloadHistoryDS">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="History" msprop:Generator_UserTableName="History" msprop:Generator_RowDeletedName="HistoryRowDeleted" msprop:Generator_TableClassName="HistoryDataTable" msprop:Generator_RowChangedName="HistoryRowChanged" msprop:Generator_RowClassName="HistoryRow" msprop:Generator_RowChangingName="HistoryRowChanging" msprop:Generator_RowEvArgName="HistoryRowChangeEvent" msprop:Generator_RowEvHandlerName="HistoryRowChangeEventHandler" msprop:Generator_TablePropName="History" msprop:Generator_TableVarName="tableHistory" msprop:Generator_RowDeletingName="HistoryRowDeleting">
+        <xs:element name="History" msprop:Generator_UserTableName="History" msprop:Generator_RowDeletedName="HistoryRowDeleted" msprop:Generator_RowChangedName="HistoryRowChanged" msprop:Generator_RowClassName="HistoryRow" msprop:Generator_RowChangingName="HistoryRowChanging" msprop:Generator_RowEvArgName="HistoryRowChangeEvent" msprop:Generator_RowEvHandlerName="HistoryRowChangeEventHandler" msprop:Generator_TableClassName="HistoryDataTable" msprop:Generator_TableVarName="tableHistory" msprop:Generator_RowDeletingName="HistoryRowDeleting" msprop:Generator_TablePropName="History">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="URL" msprop:Generator_UserColumnName="URL" msprop:Generator_ColumnPropNameInRow="URL" msprop:nullValue="_empty" msprop:Generator_ColumnVarNameInTable="columnURL" msprop:Generator_ColumnPropNameInTable="URLColumn" type="xs:string" />
-              <xs:element name="DATE" msprop:Generator_UserColumnName="DATE" msprop:Generator_ColumnPropNameInRow="DATE" msprop:Generator_ColumnVarNameInTable="columnDATE" msprop:Generator_ColumnPropNameInTable="DATEColumn" type="xs:dateTime" />
+              <xs:element name="URL" msprop:Generator_UserColumnName="URL" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="URL" msprop:Generator_ColumnPropNameInTable="URLColumn" msprop:Generator_ColumnVarNameInTable="columnURL" type="xs:string" />
+              <xs:element name="DATE" msprop:Generator_UserColumnName="DATE" msprop:Generator_ColumnVarNameInTable="columnDATE" msprop:Generator_ColumnPropNameInRow="DATE" msprop:Generator_ColumnPropNameInTable="DATEColumn" type="xs:dateTime" />
+              <xs:element name="RESULT" msprop:Generator_UserColumnName="RESULT" msprop:nullValue="_empty" msprop:Generator_ColumnVarNameInTable="columnRESULT" msprop:Generator_ColumnPropNameInTable="RESULTColumn" msprop:Generator_ColumnPropNameInRow="RESULT" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

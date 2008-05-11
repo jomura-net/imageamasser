@@ -224,7 +224,7 @@ namespace ImageAmasser
                 Invoke(textDlg, new object[]{"Collecting Image URLs... - " + APP_NAME});
                 Uri url = GoogleImageDownloader.BuildHtmlUri(searchString);
                 Dictionary<string, string> imgurls = new Dictionary<string, string>();
-                for (int i = 0; i < maxCount; i = i + 20)
+                for (int i = 0; ; i = i + 20)
                 {
                     if (worker.CancellationPending)
                     {
@@ -232,17 +232,23 @@ namespace ImageAmasser
                         break;
                     }
 
-                    Dictionary<string, string> newImgurls = GoogleImageDownloader.ParseHtml(new Uri(url.AbsoluteUri + "&start=" + i));
+                    Dictionary<string, string> newImgurls = loader.ParseHtml(new Uri(url.AbsoluteUri + "&start=" + i));
+                    if (newImgurls == null)
+                    {
+                        break;
+                    }
                     foreach (string newImgurl in newImgurls.Keys)
                     {
                         if (!imgurls.ContainsKey(newImgurl))
                         {
                             imgurls.Add(newImgurl, newImgurls[newImgurl]);
+                            if (imgurls.Count >= maxCount) goto COLLECT_URL_END;
                         }
                     }
-                    worker.ReportProgress(10 * i / maxCount);
-                    Debug.WriteLine("Target image count : " + imgurls.Count);
+                    worker.ReportProgress(10 * imgurls.Count / maxCount);
+                    Debug.WriteLine("Target image count : " + imgurls.Count + "(" + i + ")");
                 }
+            COLLECT_URL_END:
 
                 if (worker.CancellationPending)
                 {
